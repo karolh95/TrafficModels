@@ -1,8 +1,10 @@
 package karolh95.chowdhury.model;
 
+import org.springframework.stereotype.Component;
 import lombok.Getter;
 
 @Getter
+@Component
 public class Road {
 
 	private int lanesLength;

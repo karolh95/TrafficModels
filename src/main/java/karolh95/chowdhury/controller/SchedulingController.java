@@ -1,4 +1,4 @@
-package karolh95.chowdhury;
+package karolh95.chowdhury.controller;
 
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;

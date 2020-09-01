@@ -13,9 +13,11 @@ public class RoadTests {
 	@ParameterizedTest
 	@CsvFileSource(resources = "/cellsPerVehicleTestData.csv")
 	@DisplayName("Cells per vehicle test")
-	void cellsPerVehicleTest(int lanesNumber, int laneLength, int vehiclesNumber, int expected) {
+	void cellsPerVehicleTest(int lanesNumber, int lanesLength, int vehiclesNumber, int expected) {
 
-		road.create(lanesNumber, laneLength);
+		road.setLanesLength(lanesLength);
+		road.setLanesNumber(lanesNumber);
+		road.createRoad();
 
 		int cellsPerVehicle = road.getCellsPerVehicle(vehiclesNumber);
 

@@ -1,9 +1,11 @@
-package karolh95.chowdhury.model;
+package karolh95.chowdhury.model.designer;
 
 import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 import org.springframework.stereotype.Component;
+import karolh95.chowdhury.model.Road;
+import karolh95.chowdhury.model.Vehicle;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;

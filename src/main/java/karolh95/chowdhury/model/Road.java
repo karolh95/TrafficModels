@@ -2,20 +2,20 @@ package karolh95.chowdhury.model;
 
 import org.springframework.stereotype.Component;
 import lombok.Getter;
+import lombok.Setter;
 
 @Getter
 @Component
 public class Road {
 
+	@Setter
 	private int lanesLength;
+	@Setter
 	private int lanesNumber;
 
 	private Vehicle[][] cells;
 
-	public void create(int lanesNumber, int lanesLength) {
-
-		this.lanesNumber = lanesNumber;
-		this.lanesLength = lanesLength;
+	public void createRoad() {
 
 		cells = new Vehicle[lanesNumber][lanesLength];
 	}

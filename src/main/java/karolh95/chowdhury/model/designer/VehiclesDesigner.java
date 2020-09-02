@@ -6,7 +6,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map.Entry;
 import java.util.Set;
-import java.util.function.Consumer;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import org.springframework.stereotype.Component;
@@ -17,8 +16,6 @@ import lombok.RequiredArgsConstructor;
 @Component
 @RequiredArgsConstructor
 public class VehiclesDesigner {
-
-	private final VehiclesPositionDesigner designer;
 
 	private HashMap<Integer, Integer> maxVelocityNumber;
 	private List<Vehicle> vehicles;
@@ -45,17 +42,8 @@ public class VehiclesDesigner {
 				vehicles.add(new Vehicle(maxVelocity));
 			}
 		}
-
-		designer.placeVehicles(vehicles);
-
 		return vehicles;
 	};
-
-
-	public void forEachVehicle(Consumer<Vehicle> action) {
-
-		vehicles.forEach(action);
-	}
 
 
 	private void addVehicleDescription(VehicleDescriptor descriptor) {

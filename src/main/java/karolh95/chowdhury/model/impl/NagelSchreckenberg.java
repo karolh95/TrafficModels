@@ -4,7 +4,6 @@ import org.springframework.stereotype.Component;
 
 import karolh95.chowdhury.model.Model;
 import karolh95.chowdhury.model.Road;
-import karolh95.chowdhury.model.VehicleDescriptorValidator;
 import karolh95.chowdhury.model.designer.VehiclesDesigner;
 import karolh95.chowdhury.model.designer.VehiclesPositionDesigner;
 import lombok.Setter;
@@ -28,10 +27,10 @@ public class NagelSchreckenberg extends Model {
 
 	private static final int LANES_NUMBER = 2;
 
-	public NagelSchreckenberg(VehicleDescriptorValidator validator, VehiclesDesigner vehiclesDesigner,
+	public NagelSchreckenberg(VehiclesDesigner vehiclesDesigner,
 			VehiclesPositionDesigner positionDesigner, Road road) {
 
-		super(validator, vehiclesDesigner, positionDesigner, road);
+		super(vehiclesDesigner, positionDesigner, road);
 
 	}
 

@@ -8,7 +8,6 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public abstract class Model {
 
-	protected final VehicleDescriptorValidator validator;
 	protected final VehiclesDesigner vehiclesDesigner;
 	protected final VehiclesPositionDesigner positionDesigner;
 	protected final Road road;

@@ -10,7 +10,7 @@ import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import org.springframework.stereotype.Component;
 import karolh95.chowdhury.model.Vehicle;
-import karolh95.chowdhury.model.VehicleDescriptor;
+import karolh95.chowdhury.model.descriptor.VehicleDescriptor;
 import lombok.RequiredArgsConstructor;
 
 @Component
@@ -20,14 +20,15 @@ public class VehiclesDesigner {
 	private HashMap<Integer, Integer> maxVelocityNumber;
 	private List<Vehicle> vehicles;
 
-	public List<VehicleDescriptor> setVehicles(List<VehicleDescriptor> descriptors) {
+	public void setVehicles(List<VehicleDescriptor> descriptors) {
 
 		maxVelocityNumber = new HashMap<>();
 
 		descriptors.stream().filter(distinctByMaxVelocity()).forEach(this::addVehicleDescription);
 
-		return maxVelocityNumber.entrySet().stream().map(this::entryToVehicleDescriptor)
-				.collect(Collectors.toList());
+		descriptors.clear();
+		descriptors.addAll(
+				maxVelocityNumber.entrySet().stream().map(this::entryToVehicleDescriptor).collect(Collectors.toList()));
 	}
 
 	public List<Vehicle> createVehicles() {
@@ -44,7 +45,6 @@ public class VehiclesDesigner {
 		}
 		return vehicles;
 	};
-
 
 	private void addVehicleDescription(VehicleDescriptor descriptor) {
 

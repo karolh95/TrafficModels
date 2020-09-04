@@ -22,16 +22,16 @@ public class ModelService implements Runnable {
 		updateModel();
 		sendData();
 	}
-	
-	public void setModel(Model model) {
-		
-		this.model = model;
-		
-		model.reset();
-	}
 
 	public void create() {
 
+		model.create();
+	}
+	
+	public void changeModel(Model model) {
+		
+		this.model = model;
+		model.reset();
 		model.create();
 	}
 

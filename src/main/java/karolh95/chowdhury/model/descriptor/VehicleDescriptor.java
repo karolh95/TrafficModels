@@ -1,4 +1,4 @@
-package karolh95.chowdhury.model;
+package karolh95.chowdhury.model.descriptor;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

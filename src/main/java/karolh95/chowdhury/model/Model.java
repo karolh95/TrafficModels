@@ -15,8 +15,8 @@ public abstract class Model {
 	protected List<Vehicle> vehicles;
 
 	public abstract void update();
-
-	public abstract void reset();
+	
+	protected abstract void applyDefaultDescriptors();
 
 	public void create() {
 
@@ -24,4 +24,11 @@ public abstract class Model {
 		vehicles = vehiclesDesigner.createVehicles();
 		positionDesigner.placeVehicles(vehicles);
 	}
+	
+	public void reset() {
+		
+		applyDefaultDescriptors();
+		create();
+	}
+
 }

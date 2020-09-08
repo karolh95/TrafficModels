@@ -9,7 +9,7 @@ import lombok.Setter;
 public class Vehicle {
 
 	private static final int INIT_VELOCITY = 1;
-	public static final int MIN_VELOCITY = 0;
+	private static final int MIN_VELOCITY = 0;
 
 	@Setter(value = AccessLevel.PRIVATE)
 	private int maxVelocity;
@@ -20,8 +20,22 @@ public class Vehicle {
 
 	public Vehicle(int maxVelocity) {
 
+		if (maxVelocity <= MIN_VELOCITY)
+			throw new IllegalArgumentException();
+
 		setMaxVelocity(maxVelocity);
 		setVelocity(INIT_VELOCITY);
+	}
+
+	public void setVelocity(int velocity) {
+
+		if (velocity < MIN_VELOCITY)
+			throw new IllegalArgumentException();
+
+		if (velocity > maxVelocity)
+			throw new IllegalArgumentException();
+
+		this.velocity = velocity;
 	}
 
 	public void speedUp() {

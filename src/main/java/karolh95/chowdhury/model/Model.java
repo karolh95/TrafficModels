@@ -8,33 +8,20 @@ import java.util.stream.Collectors;
 
 import karolh95.chowdhury.model.designer.VehiclesDesigner;
 import karolh95.chowdhury.model.designer.VehiclesPositionDesigner;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 
 @RequiredArgsConstructor
 public abstract class Model {
 
-	protected final VehiclesDesigner vehiclesDesigner;
-	protected final VehiclesPositionDesigner positionDesigner;
 	protected final Road road;
 
+	@Getter
+	@Setter
 	private List<Vehicle> vehicles;
 
 	public abstract void update();
-
-	protected abstract void applyDefaultDescriptors();
-
-	public void create() {
-
-		road.createRoad();
-		vehicles = vehiclesDesigner.createVehicles();
-		positionDesigner.placeVehicles(vehicles);
-	}
-
-	public void reset() {
-
-		applyDefaultDescriptors();
-		create();
-	}
 
 	protected void forEachVehicle(Consumer<Vehicle> action) {
 

@@ -8,7 +8,9 @@ import java.util.Map.Entry;
 import java.util.Set;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
+
 import org.springframework.stereotype.Component;
+
 import karolh95.chowdhury.model.Vehicle;
 import karolh95.chowdhury.model.descriptor.VehicleDescriptor;
 import lombok.RequiredArgsConstructor;
@@ -18,7 +20,6 @@ import lombok.RequiredArgsConstructor;
 public class VehiclesDesigner {
 
 	private HashMap<Integer, Integer> maxVelocityNumber;
-	private List<Vehicle> vehicles;
 
 	public void setVehicles(List<VehicleDescriptor> descriptors) {
 
@@ -33,7 +34,7 @@ public class VehiclesDesigner {
 
 	public List<Vehicle> createVehicles() {
 
-		vehicles = new ArrayList<>();
+		List<Vehicle> vehicles = new ArrayList<>();
 
 		for (int maxVelocity : maxVelocityNumber.keySet()) {
 

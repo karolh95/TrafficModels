@@ -3,8 +3,9 @@ package karolh95.chowdhury.controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
+
 import karolh95.chowdhury.model.Model;
-import karolh95.chowdhury.service.ModelService;
+import karolh95.chowdhury.service.ActiveModelService;
 import karolh95.chowdhury.service.SchedulingService;
 import lombok.RequiredArgsConstructor;
 
@@ -14,7 +15,7 @@ import lombok.RequiredArgsConstructor;
 public class ActiveModelController {
 
 	private final SchedulingService schedulingService;
-	private final ModelService modelService;
+	private final ActiveModelService activeModelService;
 
 	private final Model nagelSchreckenberg;
 
@@ -22,6 +23,6 @@ public class ActiveModelController {
 	public void changeActiveModel() {
 
 		schedulingService.cancelScheduledTask();
-		modelService.setModel(nagelSchreckenberg);
+		activeModelService.changeModel(nagelSchreckenberg);
 	}
 }

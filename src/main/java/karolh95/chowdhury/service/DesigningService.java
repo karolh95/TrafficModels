@@ -17,7 +17,6 @@ public class DesigningService {
 
 	private final SchedulingService schedulingService;
 	private final VehiclesDesigner vehiclesDesigner;
-	private final ModelService modelService;
 	private final Road road;
 
 	public ModelDescriptor save(ModelDescriptor modelDescriptor) {
@@ -26,8 +25,6 @@ public class DesigningService {
 
 		saveRoadDescriptor(modelDescriptor.getRoadDescriptor());
 		saveVehicleDescriptor(modelDescriptor.getVehicleDescriptors());
-		
-		modelService.create();
 
 		return modelDescriptor;
 	}
@@ -39,7 +36,7 @@ public class DesigningService {
 	}
 
 	private void saveVehicleDescriptor(List<VehicleDescriptor> descriptors) {
-		
+
 		vehiclesDesigner.setVehicles(descriptors);
 	}
 }

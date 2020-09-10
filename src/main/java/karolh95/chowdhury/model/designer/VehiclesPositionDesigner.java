@@ -70,7 +70,7 @@ public class VehiclesPositionDesigner {
 
 		position += gap;
 
-		if (position >= laneLength) {
+		while (position >= laneLength) {
 			position -= laneLength;
 			laneNumber++;
 		}

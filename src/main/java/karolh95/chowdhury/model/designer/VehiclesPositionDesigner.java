@@ -25,6 +25,16 @@ public class VehiclesPositionDesigner {
 
 	public void placeVehicles(List<Vehicle> vehicles) {
 
+		if (vehicles == null)
+			throw new IllegalArgumentException("Vehicles list should not be null");
+
+		if (vehicles.isEmpty())
+			return;
+
+		if (isEnoughPlace(vehicles.size())) {
+			throw new IllegalArgumentException("Too many vehicles");
+		}
+
 		setLaneLength(road.getLanesLength());
 		calculateGap(vehicles.size());
 		resetPosition();
@@ -38,6 +48,11 @@ public class VehiclesPositionDesigner {
 
 			nextPosition();
 		}
+	}
+
+	private boolean isEnoughPlace(int vehiclesNumber) {
+
+		return vehiclesNumber > road.getLanesNumber() * road.getLanesLength();
 	}
 
 	private void calculateGap(int vehiclesNumber) {

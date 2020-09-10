@@ -1,9 +1,9 @@
 package karolh95.chowdhury.model.designer;
 
-import java.util.Collections;
 import java.util.List;
-import java.util.Random;
+
 import org.springframework.stereotype.Component;
+
 import karolh95.chowdhury.model.Road;
 import karolh95.chowdhury.model.Vehicle;
 import lombok.AccessLevel;
@@ -28,7 +28,6 @@ public class VehiclesPositionDesigner {
 		setLaneLength(road.getLanesLength());
 		calculateGap(vehicles.size());
 		resetPosition();
-		shuffle(vehicles);
 
 		for (Vehicle vehicle : vehicles) {
 
@@ -52,16 +51,11 @@ public class VehiclesPositionDesigner {
 		position = 0;
 	}
 
-	private void shuffle(List<Vehicle> vehicles) {
-
-		Collections.shuffle(vehicles, new Random());
-	}
-
 	private void nextPosition() {
 
 		position += gap;
 
-		if (position > laneLength) {
+		if (position >= laneLength) {
 			position -= laneLength;
 			laneNumber++;
 		}

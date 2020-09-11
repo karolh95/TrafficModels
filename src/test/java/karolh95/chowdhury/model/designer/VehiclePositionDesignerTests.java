@@ -24,14 +24,26 @@ public class VehiclePositionDesignerTests {
 	VehiclesPositionDesigner designer;
 
 	@Test
-	@DisplayName("placeVehicles() with null vehicles list test")
-	void placeNullVehicleListTest() {
+	@DisplayName("placeVehicles() with null road")
+	void placeVehiclesWithNullRoad() {
 
-		designer = new VehiclesPositionDesignerImpl(getRoad());
+		designer = new VehiclesPositionDesignerImpl();
 
 		assertThrows(IllegalArgumentException.class, () -> {
 
-			designer.placeVehicles(null);
+			designer.placeVehicles(null, null);
+		}, "Should throw IllegalArgument exception");
+	}
+
+	@Test
+	@DisplayName("placeVehicles() with null vehicles list test")
+	void placeNullVehicleListTest() {
+
+		designer = new VehiclesPositionDesignerImpl();
+
+		assertThrows(IllegalArgumentException.class, () -> {
+
+			designer.placeVehicles(getRoad(), null);
 		}, "Should throw IllegalArgument exception");
 	}
 
@@ -39,11 +51,11 @@ public class VehiclePositionDesignerTests {
 	@DisplayName("placeVehicles() with empty vehicles list test")
 	void placeEmptyVehicleListTest() {
 
-		designer = new VehiclesPositionDesignerImpl(getRoad());
+		designer = new VehiclesPositionDesignerImpl();
 
 		assertDoesNotThrow(() -> {
 
-			designer.placeVehicles(Collections.emptyList());
+			designer.placeVehicles(getRoad(), Collections.emptyList());
 		}, "Should not throw any excpetion");
 	}
 
@@ -55,10 +67,10 @@ public class VehiclePositionDesignerTests {
 		List<Vehicle> vehicles = vehiclesWrapper.getVehicles();
 		Road road = roadWrapper.getRoad();
 
-		designer = new VehiclesPositionDesignerImpl(road);
+		designer = new VehiclesPositionDesignerImpl();
 		int space = road.getCellsPerVehicle(vehicles.size());
 
-		designer.placeVehicles(vehicles);
+		designer.placeVehicles(road, vehicles);
 
 		for (int i = 0; i < vehicles.size() - 1; i++) {
 

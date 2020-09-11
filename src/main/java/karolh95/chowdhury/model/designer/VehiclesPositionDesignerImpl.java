@@ -29,7 +29,7 @@ public class VehiclesPositionDesignerImpl implements VehiclesPositionDesigner {
 
 		int vehiclesNumber = vehicles.size();
 
-		if (isEnoughPlace(road, vehiclesNumber)) {
+		if (!road.isEnoughPlace(vehiclesNumber)) {
 			throw new IllegalArgumentException("Too many vehicles");
 		}
 
@@ -47,11 +47,6 @@ public class VehiclesPositionDesignerImpl implements VehiclesPositionDesigner {
 
 			nextPosition();
 		}
-	}
-
-	private boolean isEnoughPlace(Road road, int vehiclesNumber) {
-
-		return vehiclesNumber > road.getLanesNumber() * road.getLanesLength();
 	}
 
 	private void nextPosition() {

@@ -2,13 +2,23 @@ package karolh95.chowdhury.model;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.function.BiConsumer;
+import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.CsvFileSource;
+import org.junit.jupiter.params.provider.MethodSource;
 
 @DisplayName("Road tests")
 public class RoadTests {
@@ -141,6 +151,26 @@ public class RoadTests {
 	}
 
 	@ParameterizedTest
+	@MethodSource
+	@DisplayName("Road.isEnoughPlace() test should return true")
+	void isEnoughPlaceTestForTrue(int lanesNumber, int lanesLength, int vehiclesNumber) {
+
+		road(lanesNumber, lanesLength);
+
+		assertTrue(road.isEnoughPlace(vehiclesNumber), "There should be enough place");
+	}
+
+	@ParameterizedTest
+	@MethodSource
+	@DisplayName("Road.isEnoughPlace() test should return false")
+	void isEnoughPlaceTestForFalse(int lanesNumber, int lanesLength, int vehiclesNumber) {
+
+		road(lanesNumber, lanesLength);
+
+		assertFalse(road.isEnoughPlace(vehiclesNumber), "There should not be enough place");
+	}
+
+	@ParameterizedTest
 	@DisplayName("Cells per vehicle test")
 	@CsvFileSource(resources = PATH + "cellsPerVehicle.csv")
 	void cellsPerVehicleTest(int lanesNumber, int lanesLength, int vehiclesNumber, int expected) {
@@ -150,6 +180,51 @@ public class RoadTests {
 		int cellsPerVehicle = road.getCellsPerVehicle(vehiclesNumber);
 
 		assertEquals(expected, cellsPerVehicle, "Cells per vehicle should match!");
+	}
+
+	private static Stream<Arguments> isEnoughPlaceTestForTrue() {
+
+		List<Arguments> args = new ArrayList<>();
+		int maxLanesNumber = 10;
+		int maxLanesLength = 10;
+
+		forEachConfiguration(maxLanesNumber, maxLanesLength, (lanesNumber, lanesLength) -> {
+
+			IntStream.rangeClosed(0, lanesNumber * lanesLength).forEach(vehiclesNumber -> {
+
+				args.add(Arguments.of(lanesNumber, lanesLength, vehiclesNumber));
+			});
+		});
+
+		return args.stream();
+	}
+
+	private static Stream<Arguments> isEnoughPlaceTestForFalse() {
+
+		List<Arguments> args = new ArrayList<>();
+		int maxLanesNumber = 10;
+		int maxLanesLength = 10;
+
+		forEachConfiguration(maxLanesNumber, maxLanesLength, (lanesNumber, lanesLength) -> {
+
+			int roadSize = lanesNumber * lanesLength;
+			args.add(Arguments.of(lanesNumber, lanesLength, roadSize + 1));
+		});
+
+		return args.stream();
+
+	}
+
+	private static void forEachConfiguration(int maxLanesLumber, int maxLanesLength,
+			BiConsumer<Integer, Integer> consumer) {
+
+		IntStream.rangeClosed(1, maxLanesLumber).forEach(lanesNumber -> {
+
+			IntStream.rangeClosed(1, maxLanesLength).forEach(lanesLength -> {
+
+				consumer.accept(lanesNumber, lanesLength);
+			});
+		});
 	}
 
 	private void road(int lanesNumber, int lanesLength) {

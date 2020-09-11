@@ -50,6 +50,11 @@ public class Road {
 		cells[lane][position] = null;
 	}
 
+	public boolean isEnoughPlace(int vehiclesNumber) {
+
+		return vehiclesNumber <= lanesNumber * lanesLength;
+	}
+
 	public int getCellsPerVehicle(int vehiclesNumber) {
 
 		if (vehiclesNumber <= 0)

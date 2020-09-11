@@ -27,7 +27,7 @@ public class VehiclePositionDesignerTests {
 	@DisplayName("placeVehicles() with null vehicles list test")
 	void placeNullVehicleListTest() {
 
-		designer = new VehiclesPositionDesigner(getRoad());
+		designer = new VehiclesPositionDesignerImpl(getRoad());
 
 		assertThrows(IllegalArgumentException.class, () -> {
 
@@ -39,7 +39,7 @@ public class VehiclePositionDesignerTests {
 	@DisplayName("placeVehicles() with empty vehicles list test")
 	void placeEmptyVehicleListTest() {
 
-		designer = new VehiclesPositionDesigner(getRoad());
+		designer = new VehiclesPositionDesignerImpl(getRoad());
 
 		assertDoesNotThrow(() -> {
 
@@ -55,7 +55,7 @@ public class VehiclePositionDesignerTests {
 		List<Vehicle> vehicles = vehiclesWrapper.getVehicles();
 		Road road = roadWrapper.getRoad();
 
-		designer = new VehiclesPositionDesigner(road);
+		designer = new VehiclesPositionDesignerImpl(road);
 		int space = road.getCellsPerVehicle(vehicles.size());
 
 		designer.placeVehicles(vehicles);

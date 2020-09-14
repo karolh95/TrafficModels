@@ -38,7 +38,7 @@ public class RoadTests {
 	class CreateRoadTests {
 
 		@ParameterizedTest
-		@DisplayName("Test with valid arguments")
+		@DisplayName("Test with lanesNumber and lanesLength > 0")
 		@CsvFileSource(resources = PATH + "createRoadValid.csv")
 		void createRoadTest(int lanesNumber, int lanesLength) {
 
@@ -52,7 +52,7 @@ public class RoadTests {
 		}
 
 		@ParameterizedTest
-		@DisplayName("Test with invalid arguments")
+		@DisplayName("Test with lanesNumber or lanesLength <= 0")
 		@CsvFileSource(resources = PATH + "createRoadInvalid.csv")
 		void createRoadWithIllegalArgumentsTest(int lanesNumber, int lanesLength) {
 
@@ -71,7 +71,7 @@ public class RoadTests {
 	class AtTests {
 
 		@ParameterizedTest
-		@DisplayName("Test with valid arguments and null vehicle")
+		@DisplayName("Test with null vehicle")
 		@CsvFileSource(resources = POSITIONS_VALID)
 		void atWithValidArgumentsAndNullVehicleTest(int lanesNumber, int lanesLength, int lane, int position) {
 
@@ -83,7 +83,7 @@ public class RoadTests {
 		}
 
 		@ParameterizedTest
-		@DisplayName("Test with valid arguments and not null vehicle")
+		@DisplayName("Test with not null vehicle")
 		@CsvFileSource(resources = POSITIONS_VALID)
 		void atWithValidArgumentsAndNotNullVehicleTest(int lanesNumber, int lanesLength, int lane, int position) {
 
@@ -96,7 +96,7 @@ public class RoadTests {
 		}
 
 		@ParameterizedTest
-		@DisplayName("Test with invalid arguments")
+		@DisplayName("Test with invaid lane or position")
 		@CsvFileSource(resources = POSITIONS_INVALID)
 		void atWithInvalidArgumentsTest(int lanesNumber, int lanesLength, int lane, int position) {
 
@@ -114,7 +114,7 @@ public class RoadTests {
 	class SetTests {
 
 		@ParameterizedTest
-		@DisplayName("Test with invalid arguments")
+		@DisplayName("Test with invalid lane or position")
 		@CsvFileSource(resources = POSITIONS_INVALID)
 		void setWithValidArguments(int lanesNumber, int lanesLength, int lane, int position) {
 
@@ -127,7 +127,7 @@ public class RoadTests {
 		}
 
 		@ParameterizedTest
-		@DisplayName("Test with valid arguments")
+		@DisplayName("Test with valid lane and position")
 		@CsvFileSource(resources = POSITIONS_VALID)
 		void setWithInvalidArgumentsTest(int lanesNumber, int lanesLength, int lane, int position) {
 
@@ -145,7 +145,7 @@ public class RoadTests {
 	class RemoveTests {
 
 		@ParameterizedTest
-		@DisplayName("Test with invalid arguments")
+		@DisplayName("Test with invalid lane or position")
 		@CsvFileSource(resources = POSITIONS_INVALID)
 		void removeWithInvalidArguments(int lanesNumber, int lanesLength, int lane, int position) {
 
@@ -158,7 +158,7 @@ public class RoadTests {
 		}
 
 		@ParameterizedTest
-		@DisplayName("Test with valid arguments")
+		@DisplayName("Test with valid lane and position")
 		@CsvFileSource(resources = POSITIONS_VALID)
 		void removeWithValidArguments(int lanesNumber, int lanesLength, int lane, int position) {
 
@@ -180,7 +180,7 @@ public class RoadTests {
 
 		@ParameterizedTest
 		@ArgumentsSource(IsEnoughPlaceArgumentsProvider.class)
-		@DisplayName("Test should return true")
+		@DisplayName("Test when should be enough place")
 		void isEnoughPlaceTestForTrue(int lanesNumber, int lanesLength, int vehiclesNumber) {
 
 			road(lanesNumber, lanesLength);
@@ -190,7 +190,7 @@ public class RoadTests {
 
 		@ParameterizedTest
 		@ArgumentsSource(IsNotEnoughPlaceArgumentsProvider.class)
-		@DisplayName("Test should return false")
+		@DisplayName("Test when sould not be enough place")
 		void isEnoughPlaceTestForFalse(int lanesNumber, int lanesLength, int vehiclesNumber) {
 
 			road(lanesNumber, lanesLength);
@@ -204,7 +204,7 @@ public class RoadTests {
 	class CellsPerVehicleTests {
 
 		@ParameterizedTest
-		@DisplayName("Test with valid arguments")
+		@DisplayName("Test with vehiclesNumber <= 0")
 		@ArgumentsSource(CellsPerVehicleInvalidArguments.class)
 		void cellsPerVehicleTest(int vehiclesNumber) {
 
@@ -215,7 +215,7 @@ public class RoadTests {
 		}
 
 		@ParameterizedTest
-		@DisplayName("Test with valid arguments")
+		@DisplayName("Test with vehiclesNumber > 0")
 		@CsvFileSource(resources = PATH + "cellsPerVehicle.csv")
 		void cellsPerVehicleTest(int lanesNumber, int lanesLength, int vehiclesNumber, int expected) {
 

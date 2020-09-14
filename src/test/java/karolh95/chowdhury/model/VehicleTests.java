@@ -9,156 +9,203 @@ import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Nested;
+import org.junit.jupiter.api.extension.ExtensionContext;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
-import org.junit.jupiter.params.provider.MethodSource;
+import org.junit.jupiter.params.provider.ArgumentsProvider;
+import org.junit.jupiter.params.provider.ArgumentsSource;
 
 @DisplayName("Vehicle Tests")
 public class VehicleTests {
 
 	Vehicle vehicle;
 
-	@ParameterizedTest
-	@MethodSource
-	@DisplayName("Vehicle() test with invalid arguments")
-	void createVehicleWithInvalidArgumentsTest(int maxVelocity) {
+	@Nested
+	@DisplayName("constructor tests")
+	class ConstructorTests {
 
-		assertThrows(IllegalArgumentException.class, () -> {
+		@ParameterizedTest
+		@ArgumentsSource(InvalidMaxVelocityArgumentsProvider.class)
+		@DisplayName("Test with maxVelocity <= 0")
+		void createVehicleWithInvalidArgumentsTest(int maxVelocity) {
 
-			new Vehicle(maxVelocity);
-		}, "Vehicle() should throw IllegalArgument Exception");
+			assertThrows(IllegalArgumentException.class, () -> {
+
+				new Vehicle(maxVelocity);
+			}, "Vehicle() should throw IllegalArgument Exception");
+		}
+
+		@ParameterizedTest
+		@ArgumentsSource(ValidMaxVelocityArgumentsProvider.class)
+		@DisplayName("Test with maxVelocity > 0")
+		void createVehicleWithValidArgumentsTest(int maxVelocity) {
+
+			assertDoesNotThrow(() -> {
+
+				vehicle = new Vehicle(maxVelocity);
+			});
+
+			assertNotNull(vehicle, "Vehicle should not be null");
+			assertEquals(maxVelocity, vehicle.getMaxVelocity(), "Vehicle maxVelocity should equals");
+		}
 	}
 
-	@ParameterizedTest
-	@MethodSource
-	@DisplayName("Vehicle() test with valid arguments")
-	void createVehicleWithValidArgumentsTest(int maxVelocity) {
+	@Nested
+	@DisplayName("SetVelocity() tests")
+	class SetVelocityTests {
 
-		assertDoesNotThrow(() -> {
+		@ParameterizedTest
+		@ArgumentsSource(SetVelocityInvalidArgumentsProvider.class)
+		@DisplayName("Test with velocity <=0 or velocity > maxVelocity")
+		void setVelocityWithInvalidArgumentsTest(int maxVelocity, int velocity) {
 
 			vehicle = new Vehicle(maxVelocity);
-		});
 
-		assertNotNull(vehicle, "Vehicle should not be null");
-		assertEquals(maxVelocity, vehicle.getMaxVelocity(), "Vehicle maxVelocity should equals");
+			assertThrows(IllegalArgumentException.class, () -> {
+
+				vehicle.setVelocity(velocity);
+			}, "Should throw IllegalArgument exception");
+		}
+
+		@ParameterizedTest
+		@ArgumentsSource(SetVelocityValidArgumentsProvider.class)
+		@DisplayName("Test with 0 < velocity <= maxVelocity")
+		void setVelocityWithValidArgumentsTest(int maxVelocity, int velocity) {
+
+			vehicle = new Vehicle(maxVelocity);
+
+			assertDoesNotThrow(() -> {
+
+				vehicle.setVelocity(velocity);
+			}, "Should not throw any exception");
+
+			assertEquals(velocity, vehicle.getVelocity(), "Vehicle velocity should equals");
+		}
 	}
 
-	@ParameterizedTest
-	@MethodSource
-	@DisplayName("setVelocity() test with invalid arguments")
-	void setVelocityWithInvalidArgumentsTest(int maxVelocity, int velocity) {
+	@Nested
+	@DisplayName("SpeedUp() tests")
+	class SpeedUpTests {
 
-		vehicle = new Vehicle(maxVelocity);
+		@ParameterizedTest
+		@ArgumentsSource(ValidMaxVelocityArgumentsProvider.class)
+		@DisplayName("Test with velocity == maxVelocity")
+		void speedUpWithMaxVelocityTest(int maxVelocity) {
 
-		assertThrows(IllegalArgumentException.class, () -> {
+			vehicle = new Vehicle(maxVelocity);
+			vehicle.setVelocity(maxVelocity);
 
+			vehicle.speedUp();
+
+			assertEquals(maxVelocity, vehicle.getVelocity(), "Velocity should not increase");
+		}
+
+		@ParameterizedTest
+		@ArgumentsSource(SpeedUpValidArgumentsProvidere.class)
+		@DisplayName("Test with velocity != maxVelocity")
+		void speedUpTest(int maxVelocity, int velocity) {
+
+			vehicle = new Vehicle(maxVelocity);
 			vehicle.setVelocity(velocity);
-		}, "Should throw IllegalArgument exception");
+
+			vehicle.speedUp();
+
+			assertEquals(velocity + 1, vehicle.getVelocity(), "Velocity should increase");
+		}
 	}
 
-	@ParameterizedTest
-	@MethodSource
-	@DisplayName("setVelocity() test with valid arguments")
-	void setVelocityWithValidArgumentsTest(int maxVelocity, int velocity) {
+	@Nested
+	@DisplayName("SpeedDown() tests")
+	class SpeedDownTests {
 
-		vehicle = new Vehicle(maxVelocity);
+		@ParameterizedTest
+		@ArgumentsSource(ValidMaxVelocityArgumentsProvider.class)
+		@DisplayName("Test with velocity == 0")
+		void speedDownWithMaxVelocityTest(int maxVelocity) {
 
-		assertDoesNotThrow(() -> {
+			vehicle = new Vehicle(maxVelocity);
+			vehicle.setVelocity(0);
 
+			vehicle.speedDown();
+
+			assertEquals(0, vehicle.getVelocity(), "Velocity should equals to 0");
+		}
+
+		@ParameterizedTest
+		@ArgumentsSource(SpeedDownInvalidArgumentsProvider.class)
+		@DisplayName("Test with velocity != 0")
+		void speedDownTest(int maxVelocity, int velocity) {
+
+			vehicle = new Vehicle(maxVelocity);
 			vehicle.setVelocity(velocity);
-		}, "Should not throw any exception");
 
-		assertEquals(velocity, vehicle.getVelocity(), "Vehicle velocity should equals");
+			vehicle.speedDown();
+
+			assertEquals(velocity - 1, vehicle.getVelocity(), "Velocity should decrease");
+		}
 	}
 
-	@ParameterizedTest
-	@MethodSource("createVehicleWithValidArgumentsTest")
-	@DisplayName("speedUp() test with velocity == maxVelocity")
-	void speedUpWithMaxVelocityTest(int maxVelocity) {
+	private static class InvalidMaxVelocityArgumentsProvider implements ArgumentsProvider {
 
-		vehicle = new Vehicle(maxVelocity);
-		vehicle.setVelocity(maxVelocity);
+		@Override
+		public Stream<Arguments> provideArguments(ExtensionContext context) {
 
-		vehicle.speedUp();
-
-		assertEquals(maxVelocity, vehicle.getVelocity(), "Velocity should not increase");
+			return IntStream.rangeClosed(-5, 0).mapToObj(i -> Arguments.of(i));
+		}
 	}
 
-	@ParameterizedTest
-	@MethodSource
-	@DisplayName("speedUp() test with velocity != maxVelocity")
-	void speedUpTest(int maxVelocity, int velocity) {
+	private static class ValidMaxVelocityArgumentsProvider implements ArgumentsProvider {
 
-		vehicle = new Vehicle(maxVelocity);
-		vehicle.setVelocity(velocity);
+		@Override
+		public Stream<Arguments> provideArguments(ExtensionContext context) {
 
-		vehicle.speedUp();
-
-		assertEquals(velocity + 1, vehicle.getVelocity(), "Velocity should increase");
+			return IntStream.range(1, 10).mapToObj(i -> Arguments.of(i));
+		}
 	}
 
-	@ParameterizedTest
-	@MethodSource("createVehicleWithValidArgumentsTest")
-	@DisplayName("speedDown() test with velocity == 0")
-	void speedDownWithMaxVelocityTest(int maxVelocity) {
+	private static class SetVelocityInvalidArgumentsProvider implements ArgumentsProvider {
 
-		vehicle = new Vehicle(maxVelocity);
-		vehicle.setVelocity(0);
+		private static final int MAX_VELOCITY = 5;
 
-		vehicle.speedDown();
+		@Override
+		public Stream<Arguments> provideArguments(ExtensionContext context) {
 
-		assertEquals(0, vehicle.getVelocity(), "Velocity should equals to 0");
+			Stream<Arguments> negativeVelocities = IntStream.range(-5, 0).mapToObj(i -> Arguments.of(MAX_VELOCITY, i));
+
+			Stream<Arguments> greaterThanMaxVelocities = IntStream.range(MAX_VELOCITY + 1, MAX_VELOCITY + 10)
+					.mapToObj(i -> Arguments.of(MAX_VELOCITY, i));
+
+			return Stream.concat(negativeVelocities, greaterThanMaxVelocities);
+		}
 	}
 
-	@ParameterizedTest
-	@MethodSource
-	@DisplayName("speedDown() test with velocity != 0")
-	void speedDownTest(int maxVelocity, int velocity) {
+	private static class SetVelocityValidArgumentsProvider implements ArgumentsProvider {
 
-		vehicle = new Vehicle(maxVelocity);
-		vehicle.setVelocity(velocity);
+		private static final int MAX_VELOCITY = 7;
 
-		vehicle.speedDown();
+		@Override
+		public Stream<Arguments> provideArguments(ExtensionContext context) {
 
-		assertEquals(velocity - 1, vehicle.getVelocity(), "Velocity should decrease");
+			return IntStream.range(1, MAX_VELOCITY).mapToObj(i -> Arguments.of(MAX_VELOCITY, i));
+		}
 	}
 
-	private static IntStream createVehicleWithInvalidArgumentsTest() {
+	private static class SpeedUpValidArgumentsProvidere extends SetVelocityValidArgumentsProvider {
 
-		return IntStream.rangeClosed(-5, 0);
+		@Override
+		public Stream<Arguments> provideArguments(ExtensionContext context) {
+
+			return Stream.concat(Stream.of(Arguments.of(7, 0)), super.provideArguments(context));
+		}
 	}
 
-	private static IntStream createVehicleWithValidArgumentsTest() {
+	private static class SpeedDownInvalidArgumentsProvider extends SetVelocityValidArgumentsProvider {
 
-		return IntStream.range(1, 10);
-	}
+		@Override
+		public Stream<Arguments> provideArguments(ExtensionContext context) {
 
-	private static Stream<Arguments> setVelocityWithInvalidArgumentsTest() {
-
-		int maxVelocity = 5;
-
-		Stream<Arguments> negativeVelocities = IntStream.range(-5, 0).mapToObj(i -> Arguments.of(maxVelocity, i));
-
-		Stream<Arguments> greaterThanMaxVelocities = IntStream.range(maxVelocity + 1, maxVelocity + 10)
-				.mapToObj(i -> Arguments.of(maxVelocity, i));
-
-		return Stream.concat(negativeVelocities, greaterThanMaxVelocities);
-	}
-
-	private static Stream<Arguments> setVelocityWithValidArgumentsTest() {
-
-		int maxVelocity = 7;
-
-		return IntStream.range(1, maxVelocity).mapToObj(i -> Arguments.of(maxVelocity, i));
-	}
-
-	private static Stream<Arguments> speedUpTest() {
-
-		return Stream.concat(Stream.of(Arguments.of(7, 0)), setVelocityWithValidArgumentsTest());
-	}
-
-	private static Stream<Arguments> speedDownTest() {
-
-		return Stream.concat(setVelocityWithValidArgumentsTest(), Stream.of(Arguments.of(7, 7)));
+			return Stream.concat(super.provideArguments(context), Stream.of(Arguments.of(7, 7)));
+		}
 	}
 }

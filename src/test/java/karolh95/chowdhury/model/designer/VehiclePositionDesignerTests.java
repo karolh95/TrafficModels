@@ -10,79 +10,88 @@ import java.util.List;
 import java.util.stream.Stream;
 
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtensionContext;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
-import org.junit.jupiter.params.provider.MethodSource;
+import org.junit.jupiter.params.provider.ArgumentsProvider;
+import org.junit.jupiter.params.provider.ArgumentsSource;
 
 import karolh95.chowdhury.model.Road;
 import karolh95.chowdhury.model.Vehicle;
 import lombok.Getter;
 
+@DisplayName("VehiclePositionDesignerImpl tests")
 public class VehiclePositionDesignerTests {
 
 	VehiclesPositionDesigner designer;
 
-	@Test
-	@DisplayName("placeVehicles() with null road")
-	void placeVehiclesWithNullRoad() {
+	@Nested
+	@DisplayName("placeVehicles() tests")
+	class PlaceVehiclesTests {
 
-		designer = new VehiclesPositionDesignerImpl();
+		@Test
+		@DisplayName("Test with null road")
+		void placeVehiclesWithNullRoad() {
 
-		assertThrows(IllegalArgumentException.class, () -> {
+			designer = new VehiclesPositionDesignerImpl();
 
-			designer.placeVehicles(null, null);
-		}, "Should throw IllegalArgument exception");
-	}
+			assertThrows(IllegalArgumentException.class, () -> {
 
-	@Test
-	@DisplayName("placeVehicles() with null vehicles list test")
-	void placeNullVehicleListTest() {
-
-		designer = new VehiclesPositionDesignerImpl();
-
-		assertThrows(IllegalArgumentException.class, () -> {
-
-			designer.placeVehicles(getRoad(), null);
-		}, "Should throw IllegalArgument exception");
-	}
-
-	@Test
-	@DisplayName("placeVehicles() with empty vehicles list test")
-	void placeEmptyVehicleListTest() {
-
-		designer = new VehiclesPositionDesignerImpl();
-
-		assertDoesNotThrow(() -> {
-
-			designer.placeVehicles(getRoad(), Collections.emptyList());
-		}, "Should not throw any excpetion");
-	}
-
-	@DisplayName("placeVehicles() test")
-	@ParameterizedTest(name = "[{index}] {0}, {1}")
-	@MethodSource
-	void placeVehiclesTest(VehiclesWrapper vehiclesWrapper, RoadWrapper roadWrapper) {
-
-		List<Vehicle> vehicles = vehiclesWrapper.getVehicles();
-		Road road = roadWrapper.getRoad();
-
-		designer = new VehiclesPositionDesignerImpl();
-		int space = road.getCellsPerVehicle(vehicles.size());
-
-		designer.placeVehicles(road, vehicles);
-
-		for (int i = 0; i < vehicles.size() - 1; i++) {
-
-			Vehicle a = vehicles.get(i);
-			Vehicle b = vehicles.get(i + 1);
-
-			int aPos = a.getPosition() + a.getLane() * road.getLanesLength();
-			int bPos = b.getPosition() + b.getLane() * road.getLanesLength();
-
-			assertEquals(space, bPos - aPos, "Space between vehicles should be equal");
+				designer.placeVehicles(null, null);
+			}, "Should throw IllegalArgument exception");
 		}
 
+		@Test
+		@DisplayName("Test with null vehicles list")
+		void placeNullVehicleListTest() {
+
+			designer = new VehiclesPositionDesignerImpl();
+
+			assertThrows(IllegalArgumentException.class, () -> {
+
+				designer.placeVehicles(getRoad(), null);
+			}, "Should throw IllegalArgument exception");
+		}
+
+		@Test
+		@DisplayName("Test with empty vehicles list")
+		void placeEmptyVehicleListTest() {
+
+			designer = new VehiclesPositionDesignerImpl();
+
+			assertDoesNotThrow(() -> {
+
+				designer.placeVehicles(getRoad(), Collections.emptyList());
+			}, "Should not throw any excpetion");
+		}
+
+		@DisplayName("Test with vehicles")
+		@ParameterizedTest(name = "[{index}] {0}, {1}")
+		@ArgumentsSource(VehiclesArgumentsProfider.class)
+		void placeVehiclesTest(VehiclesWrapper vehiclesWrapper, RoadWrapper roadWrapper) {
+
+			List<Vehicle> vehicles = vehiclesWrapper.getVehicles();
+			Road road = roadWrapper.getRoad();
+
+			designer = new VehiclesPositionDesignerImpl();
+			int space = road.getCellsPerVehicle(vehicles.size());
+
+			designer.placeVehicles(road, vehicles);
+
+			for (int i = 0; i < vehicles.size() - 1; i++) {
+
+				Vehicle a = vehicles.get(i);
+				Vehicle b = vehicles.get(i + 1);
+
+				int aPos = a.getPosition() + a.getLane() * road.getLanesLength();
+				int bPos = b.getPosition() + b.getLane() * road.getLanesLength();
+
+				assertEquals(space, bPos - aPos, "Space between vehicles should be equal");
+			}
+
+		}
 	}
 
 	private Road getRoad() {
@@ -95,32 +104,36 @@ public class VehiclePositionDesignerTests {
 		return road;
 	}
 
-	private static Stream<Arguments> placeVehiclesTest() {
+	private static class VehiclesArgumentsProfider implements ArgumentsProvider {
 
-		final int MAX_LANES_NUMBER = 5;
-		final int MAX_LANES_LENGTH = 30;
+		private static final int MAX_LANES_NUMBER = 5;
+		private static final int MAX_LANES_LENGTH = 30;
 
-		List<Arguments> args = new ArrayList<>();
+		@Override
+		public Stream<Arguments> provideArguments(ExtensionContext context) {
 
-		RoadWrapper roadWrapper;
-		VehiclesWrapper vehiclesWrapper;
+			List<Arguments> args = new ArrayList<>();
 
-		for (int lanesNumber = 1; lanesNumber <= MAX_LANES_NUMBER; lanesNumber++) {
+			RoadWrapper roadWrapper;
+			VehiclesWrapper vehiclesWrapper;
 
-			for (int lanesLength = 1; lanesLength <= MAX_LANES_LENGTH; lanesLength++) {
+			for (int lanesNumber = 1; lanesNumber <= MAX_LANES_NUMBER; lanesNumber++) {
 
-				for (int vehiclesNumber = 1; vehiclesNumber <= lanesNumber * lanesLength; vehiclesNumber++) {
+				for (int lanesLength = 1; lanesLength <= MAX_LANES_LENGTH; lanesLength++) {
 
-					roadWrapper = new RoadWrapper(lanesNumber, lanesLength);
-					vehiclesWrapper = new VehiclesWrapper();
-					vehiclesWrapper.add(vehiclesNumber);
+					for (int vehiclesNumber = 1; vehiclesNumber <= lanesNumber * lanesLength; vehiclesNumber++) {
 
-					args.add(Arguments.of(vehiclesWrapper, roadWrapper));
+						roadWrapper = new RoadWrapper(lanesNumber, lanesLength);
+						vehiclesWrapper = new VehiclesWrapper();
+						vehiclesWrapper.add(vehiclesNumber);
+
+						args.add(Arguments.of(vehiclesWrapper, roadWrapper));
+					}
 				}
 			}
-		}
 
-		return args.stream();
+			return args.stream();
+		}
 	}
 
 	@Getter

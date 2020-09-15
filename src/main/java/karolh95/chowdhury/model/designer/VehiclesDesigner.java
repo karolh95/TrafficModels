@@ -19,11 +19,14 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class VehiclesDesigner {
 
-	private HashMap<Integer, Integer> maxVelocityNumber;
+	private HashMap<Integer, Integer> maxVelocityNumber = new HashMap<>();
 
 	public void setVehicles(List<VehicleDescriptor> descriptors) {
 
-		maxVelocityNumber = new HashMap<>();
+		if (descriptors == null)
+			throw new NullPointerException("Descriptors list should not be null");
+
+		maxVelocityNumber.clear();
 
 		descriptors.stream().filter(distinctByMaxVelocity()).forEach(this::addVehicleDescription);
 

@@ -1,5 +1,9 @@
 package karolh95.chowdhury.controller;
 
+import javax.validation.Valid;
+
+import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -17,8 +21,16 @@ public class DesigningController {
 	private final DesigningService service;
 
 	@PostMapping("model/descriptor")
-	public ModelDescriptor addVehicles(@RequestBody ModelDescriptor modelDescriptor) {
+	public ResponseEntity<ModelDescriptor> saveModelDescriptor(@Valid @RequestBody ModelDescriptor modelDescriptor,
+			BindingResult result) {
 
-		return service.save(modelDescriptor);
+		if (result.hasErrors()) {
+
+			return ResponseEntity.badRequest().build();
+		} else {
+
+			service.save(modelDescriptor);
+			return ResponseEntity.ok(modelDescriptor);
+		}
 	}
 }

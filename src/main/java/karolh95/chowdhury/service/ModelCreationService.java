@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 import karolh95.chowdhury.model.Model;
 import karolh95.chowdhury.model.Road;
 import karolh95.chowdhury.model.Vehicle;
-import karolh95.chowdhury.model.designer.VehiclesDesigner;
+import karolh95.chowdhury.model.VehicleFactory;
 import karolh95.chowdhury.model.designer.VehiclesPositionDesigner;
 import lombok.RequiredArgsConstructor;
 
@@ -16,12 +16,12 @@ import lombok.RequiredArgsConstructor;
 public class ModelCreationService {
 
 	private final Road road;
-	private final VehiclesDesigner vehiclesDesigner;
+	private final VehicleFactory vehicleFactory;
 	private final VehiclesPositionDesigner vehiclesPositionDesigner;
 
 	public void createModel(Model model) {
 
-		List<Vehicle> vehicles = vehiclesDesigner.createVehicles();
+		List<Vehicle> vehicles = vehicleFactory.createVehicles();
 
 		vehiclesPositionDesigner.placeVehicles(road, vehicles);
 		model.setVehicles(vehicles);

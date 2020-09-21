@@ -18,7 +18,6 @@ import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.ArgumentsProvider;
 import org.junit.jupiter.params.provider.ArgumentsSource;
 
-import karolh95.chowdhury.model.Vehicle;
 import karolh95.chowdhury.model.descriptor.VehicleDescriptor;
 
 @DisplayName("VehicleDesigner tests")
@@ -73,44 +72,6 @@ public class VehicleDesignerTests {
 			designer.setVehicles(descriptors);
 
 			assertEquals(descriptorsNumber, descriptors.size(), "Descriptors number should equal");
-		}
-	}
-
-	@Nested
-	@DisplayName("createVehicles() tests")
-	class CreateVehiclesTests {
-
-		@Test
-		@DisplayName("Test with no descriptors")
-		void createVehiclesEmpty() {
-
-			designer = new VehiclesDesigner();
-
-			List<Vehicle> vehicles = designer.createVehicles();
-
-			assertTrue(vehicles.isEmpty(), "Vehicles list should be empty");
-		}
-
-		@ParameterizedTest
-		@ArgumentsSource(ValidVehiclesDescriptorsArgumentProvider.class)
-		@DisplayName("Test with valid vehicles descriptors")
-		void createVehicles(List<VehicleDescriptor> descriptors) {
-
-			designer.setVehicles(descriptors);
-			int totalVehiclesNumber = descriptors.stream().map(VehicleDescriptor::getVehiclesNumber).reduce(0,
-					Integer::sum);
-
-			List<Vehicle> vehicles = designer.createVehicles();
-
-			assertEquals(totalVehiclesNumber, vehicles.size(), "Total vehicles number should match");
-
-			descriptors.forEach(descriptor -> {
-
-				long vehiclesNumber = vehicles.stream()
-						.filter(vehicle -> vehicle.getMaxVelocity() == descriptor.getMaxVelocity()).count();
-
-				assertEquals(descriptor.getVehiclesNumber(), vehiclesNumber, "Vehicles number should match");
-			});
 		}
 	}
 

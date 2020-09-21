@@ -1,6 +1,5 @@
 package karolh95.chowdhury.model.designer;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -11,7 +10,6 @@ import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Component;
 
-import karolh95.chowdhury.model.Vehicle;
 import karolh95.chowdhury.model.descriptor.VehicleDescriptor;
 import lombok.RequiredArgsConstructor;
 
@@ -35,20 +33,15 @@ public class VehiclesDesigner {
 				maxVelocityNumber.entrySet().stream().map(this::entryToVehicleDescriptor).collect(Collectors.toList()));
 	}
 
-	public List<Vehicle> createVehicles() {
+	public Set<Integer> getMaxVelocities() {
 
-		List<Vehicle> vehicles = new ArrayList<>();
+		return maxVelocityNumber.keySet();
+	}
 
-		for (int maxVelocity : maxVelocityNumber.keySet()) {
+	public int getVehiclesNumber(int maxVelocity) {
 
-			int number = maxVelocityNumber.get(maxVelocity);
-
-			for (int i = 0; i < number; i++) {
-				vehicles.add(new Vehicle(maxVelocity));
-			}
-		}
-		return vehicles;
-	};
+		return maxVelocityNumber.get(maxVelocity);
+	}
 
 	private void addVehicleDescription(VehicleDescriptor descriptor) {
 

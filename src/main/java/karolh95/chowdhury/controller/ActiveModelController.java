@@ -4,8 +4,8 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import karolh95.chowdhury.model.Model;
-import karolh95.chowdhury.service.ActiveModelService;
+import karolh95.chowdhury.model.ModelFactory;
+import karolh95.chowdhury.service.ModelFactoryService;
 import karolh95.chowdhury.service.SchedulingService;
 import lombok.RequiredArgsConstructor;
 
@@ -15,14 +15,20 @@ import lombok.RequiredArgsConstructor;
 public class ActiveModelController {
 
 	private final SchedulingService schedulingService;
-	private final ActiveModelService activeModelService;
+	private final ModelFactoryService modelFactoryService;
 
-	private final Model nagelSchreckenberg;
+	private final ModelFactory nagelSchreckenbergModelFactory;
 
 	@GetMapping("model/nagel_schreckenber")
 	public void changeActiveModel() {
 
+		changeModelFactory(nagelSchreckenbergModelFactory);
+	}
+
+	private void changeModelFactory(ModelFactory factory) {
+
 		schedulingService.cancelScheduledTask();
-		activeModelService.changeModel(nagelSchreckenberg);
+
+		modelFactoryService.changeModelFactory(factory);
 	}
 }

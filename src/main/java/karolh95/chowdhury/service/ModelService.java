@@ -9,12 +9,12 @@ import lombok.RequiredArgsConstructor;
 public class ModelService implements Runnable {
 
 	private final DataCollectingService dataCollecting;
-	private final ActiveModelService activeModel;
+	private final ModelFactoryService modelFactoryService;
 
 	@Override
 	public void run() {
 
-		activeModel.updateModel();
+		modelFactoryService.getModel().update();
 		dataCollecting.sendData();
 	}
 }

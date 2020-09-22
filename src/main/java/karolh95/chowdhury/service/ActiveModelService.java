@@ -5,7 +5,6 @@ import org.springframework.stereotype.Service;
 import karolh95.chowdhury.model.Model;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-import lombok.Setter;
 
 @Service
 @RequiredArgsConstructor

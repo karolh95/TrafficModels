@@ -5,8 +5,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import karolh95.chowdhury.model.ModelFactory;
-import karolh95.chowdhury.service.ModelFactoryService;
-import karolh95.chowdhury.service.SchedulingService;
+import karolh95.chowdhury.model.descriptor.ModelDescriptor;
+import karolh95.chowdhury.service.ModelChangingService;
 import lombok.RequiredArgsConstructor;
 
 @RestController
@@ -14,21 +14,14 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class ActiveModelController {
 
-	private final SchedulingService schedulingService;
-	private final ModelFactoryService modelFactoryService;
+	private final ModelChangingService modelChangingService;
 
 	private final ModelFactory nagelSchreckenbergModelFactory;
 
 	@GetMapping("model/nagel_schreckenber")
-	public void changeActiveModel() {
+	public ModelDescriptor changeActiveModel() {
 
-		changeModelFactory(nagelSchreckenbergModelFactory);
+		return modelChangingService.changeModelFactory(nagelSchreckenbergModelFactory);
 	}
 
-	private void changeModelFactory(ModelFactory factory) {
-
-		schedulingService.cancelScheduledTask();
-
-		modelFactoryService.changeModelFactory(factory);
-	}
 }

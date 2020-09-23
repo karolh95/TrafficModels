@@ -20,7 +20,7 @@ public class DesigningService {
 	private final Road road;
 
 	public ModelDescriptor saveModelDescriptor(ModelDescriptor modelDescriptor) {
-		
+
 		schedulingService.cancelScheduledTask();
 
 		saveRoadDescriptor(modelDescriptor.getRoadDescriptor());

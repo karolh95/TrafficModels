@@ -17,9 +17,12 @@ public class ModelCreationService {
 
 	private final Road road;
 	private final VehicleFactory vehicleFactory;
+	private final ModelFactoryService modelFactoryService;
 	private final VehiclesPositionDesigner vehiclesPositionDesigner;
 
-	public void createModel(Model model) {
+	public void createModel() {
+
+		Model model = modelFactoryService.getModel();
 
 		List<Vehicle> vehicles = vehicleFactory.createVehicles();
 

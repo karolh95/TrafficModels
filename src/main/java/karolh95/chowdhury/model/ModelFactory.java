@@ -1,16 +1,10 @@
 package karolh95.chowdhury.model;
 
-import java.util.List;
-
-import karolh95.chowdhury.model.descriptor.VehicleDescriptor;
+import karolh95.chowdhury.model.descriptor.ModelDescriptor;
 
 public interface ModelFactory {
 
 	Model getModel();
 
-	int getDefaultLanesNumber();
-
-	int getDefaultLanesLength();
-
-	List<VehicleDescriptor> getDefaultVehiclesDescriptors();
+	ModelDescriptor getDefaultModelDescriptor();
 }

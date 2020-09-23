@@ -7,6 +7,8 @@ import org.springframework.stereotype.Component;
 
 import karolh95.chowdhury.model.Model;
 import karolh95.chowdhury.model.ModelFactory;
+import karolh95.chowdhury.model.descriptor.ModelDescriptor;
+import karolh95.chowdhury.model.descriptor.RoadDescriptor;
 import karolh95.chowdhury.model.descriptor.VehicleDescriptor;
 import lombok.RequiredArgsConstructor;
 
@@ -29,19 +31,17 @@ public class NagelSchreckenbergModelFactory implements ModelFactory {
 	}
 
 	@Override
-	public int getDefaultLanesNumber() {
+	public ModelDescriptor getDefaultModelDescriptor() {
 
-		return DEFAULT_LANES_NUMBER;
+		ModelDescriptor modelDescriptor = new ModelDescriptor();
+
+		modelDescriptor.setVehicleDescriptors(getDefaultVehiclesDescriptors());
+		modelDescriptor.setRoadDescriptor(getDefaultRoadDescriptor());
+
+		return null;
 	}
 
-	@Override
-	public int getDefaultLanesLength() {
-
-		return DEFAULT_LANES_LENGTH;
-	}
-
-	@Override
-	public List<VehicleDescriptor> getDefaultVehiclesDescriptors() {
+	private List<VehicleDescriptor> getDefaultVehiclesDescriptors() {
 
 		VehicleDescriptor slowVehiclesDescriptor = new VehicleDescriptor(NagelSchreckenberg.SLOW_VEHICLE_MAX_VELOCITY,
 				DEFAULT_SLOW_VEHICLES_NUMBER);
@@ -50,5 +50,15 @@ public class NagelSchreckenbergModelFactory implements ModelFactory {
 				DEFAULT_FAST_VEHICLES_NUMBER);
 
 		return Arrays.asList(slowVehiclesDescriptor, fastVehiclesDescriptor);
+	}
+
+	private RoadDescriptor getDefaultRoadDescriptor() {
+
+		RoadDescriptor roadDescriptor = new RoadDescriptor();
+
+		roadDescriptor.setLanesNumber(DEFAULT_LANES_NUMBER);
+		roadDescriptor.setLanesLength(DEFAULT_LANES_LENGTH);
+
+		return roadDescriptor;
 	}
 }

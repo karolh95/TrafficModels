@@ -29,7 +29,7 @@ public class DesigningController {
 			return ResponseEntity.badRequest().build();
 		} else {
 
-			service.save(modelDescriptor);
+			service.saveModelDescriptor(modelDescriptor);
 			return ResponseEntity.ok(modelDescriptor);
 		}
 	}

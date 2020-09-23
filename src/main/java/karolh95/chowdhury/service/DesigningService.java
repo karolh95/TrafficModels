@@ -19,7 +19,7 @@ public class DesigningService {
 	private final VehiclesDesigner vehiclesDesigner;
 	private final Road road;
 
-	public ModelDescriptor save(ModelDescriptor modelDescriptor) {
+	public ModelDescriptor saveModelDescriptor(ModelDescriptor modelDescriptor) {
 		
 		schedulingService.cancelScheduledTask();
 

@@ -19,7 +19,7 @@ public class ModelFactoryService {
 
 		this.factory = factory;
 
-		designingService.save(factory.getDefaultModelDescriptor());
+		designingService.saveModelDescriptor(factory.getDefaultModelDescriptor());
 
 		modelCreationService.createModel(factory.getModel());
 	}

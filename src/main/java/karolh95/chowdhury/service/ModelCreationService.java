@@ -26,6 +26,8 @@ public class ModelCreationService {
 
 		List<Vehicle> vehicles = vehicleFactory.createVehicles();
 
+		road.createRoad();
+
 		vehiclesPositionDesigner.placeVehicles(road, vehicles);
 
 		model.setVehicles(vehicles);

@@ -12,9 +12,11 @@ import karolh95.chowdhury.model.descriptor.RoadDescriptor;
 import karolh95.chowdhury.model.descriptor.VehicleDescriptor;
 import lombok.RequiredArgsConstructor;
 
-@Component
+@Component(NagelSchreckenbergModelFactory.BEAN_NAME)
 @RequiredArgsConstructor
 public class NagelSchreckenbergModelFactory implements ModelFactory {
+
+	public static final String BEAN_NAME = "nagelSchreckenbergModelFactory";
 
 	private static final int DEFAULT_LANES_NUMBER = 2;
 	private static final int DEFAULT_LANES_LENGTH = 20;

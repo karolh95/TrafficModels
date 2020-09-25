@@ -12,9 +12,11 @@ import karolh95.chowdhury.model.descriptor.RoadDescriptor;
 import karolh95.chowdhury.model.descriptor.VehicleDescriptor;
 import lombok.RequiredArgsConstructor;
 
-@Component
+@Component(ASEPModelFactory.BEAN_NAME)
 @RequiredArgsConstructor
 public class ASEPModelFactory implements ModelFactory {
+
+	public static final String BEAN_NAME = "ASEPModelFactory";
 
 	private static final int DEFAULT_LANES_NUMBER = 1;
 	private static final int DEFAULT_LANES_LENGTH = 10;

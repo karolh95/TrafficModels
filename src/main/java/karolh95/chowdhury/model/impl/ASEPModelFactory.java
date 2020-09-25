@@ -1,6 +1,6 @@
 package karolh95.chowdhury.model.impl;
 
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.stereotype.Component;
@@ -42,9 +42,13 @@ public class ASEPModelFactory implements ModelFactory {
 
 	private List<VehicleDescriptor> getDefaultVehiclesDescriptors() {
 
+		List<VehicleDescriptor> descriptors = new ArrayList<>();
+
 		VehicleDescriptor descriptor = new VehicleDescriptor(ASEP.MAX_VELOCITY, DEFAULT_VEHICLES_NUMBER);
 
-		return Arrays.asList(descriptor);
+		descriptors.add(descriptor);
+
+		return descriptors;
 	}
 
 	private RoadDescriptor getDefaultRoadDescriptor() {

@@ -1,6 +1,6 @@
 package karolh95.chowdhury.model.impl;
 
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.stereotype.Component;
@@ -49,7 +49,12 @@ public class NagelSchreckenbergModelFactory implements ModelFactory {
 		VehicleDescriptor fastVehiclesDescriptor = new VehicleDescriptor(NagelSchreckenberg.FAST_VEHICLE_MAX_VELOCITY,
 				DEFAULT_FAST_VEHICLES_NUMBER);
 
-		return Arrays.asList(slowVehiclesDescriptor, fastVehiclesDescriptor);
+		List<VehicleDescriptor> descriptors = new ArrayList<>();
+
+		descriptors.add(slowVehiclesDescriptor);
+		descriptors.add(fastVehiclesDescriptor);
+
+		return descriptors;
 	}
 
 	private RoadDescriptor getDefaultRoadDescriptor() {

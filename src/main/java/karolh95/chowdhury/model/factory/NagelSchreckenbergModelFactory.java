@@ -6,10 +6,10 @@ import java.util.List;
 import org.springframework.stereotype.Component;
 
 import karolh95.chowdhury.model.Model;
+import karolh95.chowdhury.model.NagelSchreckenberg;
 import karolh95.chowdhury.model.descriptor.ModelDescriptor;
 import karolh95.chowdhury.model.descriptor.RoadDescriptor;
 import karolh95.chowdhury.model.descriptor.VehicleDescriptor;
-import karolh95.chowdhury.model.impl.NagelSchreckenberg;
 import lombok.RequiredArgsConstructor;
 
 @Component(NagelSchreckenbergModelFactory.BEAN_NAME)

@@ -2,8 +2,8 @@ package karolh95.chowdhury.model.designer;
 
 import java.util.List;
 
-import karolh95.chowdhury.model.Road;
-import karolh95.chowdhury.model.Vehicle;
+import karolh95.chowdhury.model.component.Road;
+import karolh95.chowdhury.model.component.Vehicle;
 
 public interface VehiclesPositionDesigner {
 

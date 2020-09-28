@@ -3,7 +3,7 @@ package karolh95.chowdhury.model.impl;
 import org.springframework.stereotype.Component;
 
 import karolh95.chowdhury.model.Model;
-import karolh95.chowdhury.model.Road;
+import karolh95.chowdhury.model.component.Road;
 import lombok.Setter;
 
 /**

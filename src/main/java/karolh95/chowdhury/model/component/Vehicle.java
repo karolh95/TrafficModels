@@ -1,4 +1,4 @@
-package karolh95.chowdhury.model;
+package karolh95.chowdhury.model.component;
 
 import lombok.AccessLevel;
 import lombok.Getter;

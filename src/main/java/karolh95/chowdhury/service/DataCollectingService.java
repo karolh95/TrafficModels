@@ -3,7 +3,7 @@ package karolh95.chowdhury.service;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Service;
 
-import karolh95.chowdhury.model.Road;
+import karolh95.chowdhury.model.component.Road;
 import lombok.RequiredArgsConstructor;
 
 @Service

@@ -18,6 +18,9 @@ import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.ArgumentsProvider;
 import org.junit.jupiter.params.provider.ArgumentsSource;
 
+import karolh95.chowdhury.model.component.Vehicle;
+import karolh95.chowdhury.model.component.factory.DesignedVehicleFactory;
+import karolh95.chowdhury.model.component.factory.VehicleFactory;
 import karolh95.chowdhury.model.descriptor.VehicleDescriptor;
 import karolh95.chowdhury.model.designer.VehiclesDesigner;
 

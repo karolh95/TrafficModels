@@ -6,6 +6,8 @@ import java.util.Random;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
+import karolh95.chowdhury.model.component.Road;
+import karolh95.chowdhury.model.component.Vehicle;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;

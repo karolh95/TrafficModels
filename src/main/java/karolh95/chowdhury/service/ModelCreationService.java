@@ -5,9 +5,9 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import karolh95.chowdhury.model.Model;
-import karolh95.chowdhury.model.Road;
-import karolh95.chowdhury.model.Vehicle;
-import karolh95.chowdhury.model.VehicleFactory;
+import karolh95.chowdhury.model.component.Road;
+import karolh95.chowdhury.model.component.Vehicle;
+import karolh95.chowdhury.model.component.factory.VehicleFactory;
 import karolh95.chowdhury.model.designer.VehiclesPositionDesigner;
 import lombok.RequiredArgsConstructor;
 

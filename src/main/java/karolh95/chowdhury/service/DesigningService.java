@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import karolh95.chowdhury.model.Road;
+import karolh95.chowdhury.model.component.Road;
 import karolh95.chowdhury.model.descriptor.ModelDescriptor;
 import karolh95.chowdhury.model.descriptor.RoadDescriptor;
 import karolh95.chowdhury.model.descriptor.VehicleDescriptor;

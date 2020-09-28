@@ -4,8 +4,8 @@ import java.util.List;
 
 import org.springframework.stereotype.Component;
 
-import karolh95.chowdhury.model.Road;
-import karolh95.chowdhury.model.Vehicle;
+import karolh95.chowdhury.model.component.Road;
+import karolh95.chowdhury.model.component.Vehicle;
 
 @Component
 public class VehiclesPositionDesignerImpl implements VehiclesPositionDesigner {

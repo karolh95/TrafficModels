@@ -18,8 +18,8 @@ import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.ArgumentsProvider;
 import org.junit.jupiter.params.provider.ArgumentsSource;
 
-import karolh95.chowdhury.model.Road;
-import karolh95.chowdhury.model.Vehicle;
+import karolh95.chowdhury.model.component.Road;
+import karolh95.chowdhury.model.component.Vehicle;
 import lombok.Getter;
 
 @DisplayName("VehiclePositionDesignerImpl tests")

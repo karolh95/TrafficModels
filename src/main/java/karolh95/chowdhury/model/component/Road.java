@@ -1,6 +1,7 @@
-package karolh95.chowdhury.model;
+package karolh95.chowdhury.model.component;
 
 import org.springframework.stereotype.Component;
+
 import lombok.Getter;
 import lombok.Setter;
 

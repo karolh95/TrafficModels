@@ -1,10 +1,11 @@
-package karolh95.chowdhury.model;
+package karolh95.chowdhury.model.component.factory;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.stereotype.Component;
 
+import karolh95.chowdhury.model.component.Vehicle;
 import karolh95.chowdhury.model.designer.VehiclesDesigner;
 import lombok.RequiredArgsConstructor;
 

@@ -16,6 +16,8 @@ import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.ArgumentsProvider;
 import org.junit.jupiter.params.provider.ArgumentsSource;
 
+import karolh95.chowdhury.model.component.Vehicle;
+
 @DisplayName("Vehicle Tests")
 public class VehicleTests {
 

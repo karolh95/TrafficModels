@@ -2,8 +2,8 @@ package karolh95.chowdhury.model;
 
 import com.fasterxml.jackson.annotation.JsonValue;
 
-import karolh95.chowdhury.model.impl.ASEPModelFactory;
-import karolh95.chowdhury.model.impl.NagelSchreckenbergModelFactory;
+import karolh95.chowdhury.model.factory.ASEPModelFactory;
+import karolh95.chowdhury.model.factory.NagelSchreckenbergModelFactory;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 

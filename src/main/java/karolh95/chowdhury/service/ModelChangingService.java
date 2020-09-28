@@ -3,9 +3,9 @@ package karolh95.chowdhury.service;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Service;
 
-import karolh95.chowdhury.model.ModelFactory;
 import karolh95.chowdhury.model.ModelType;
 import karolh95.chowdhury.model.descriptor.ModelDescriptor;
+import karolh95.chowdhury.model.factory.ModelFactory;
 import lombok.RequiredArgsConstructor;
 
 @Service

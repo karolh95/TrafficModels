@@ -1,4 +1,4 @@
-package karolh95.chowdhury.model.impl;
+package karolh95.chowdhury.model.factory;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -6,25 +6,24 @@ import java.util.List;
 import org.springframework.stereotype.Component;
 
 import karolh95.chowdhury.model.Model;
-import karolh95.chowdhury.model.ModelFactory;
 import karolh95.chowdhury.model.descriptor.ModelDescriptor;
 import karolh95.chowdhury.model.descriptor.RoadDescriptor;
 import karolh95.chowdhury.model.descriptor.VehicleDescriptor;
+import karolh95.chowdhury.model.impl.ASEP;
 import lombok.RequiredArgsConstructor;
 
-@Component(NagelSchreckenbergModelFactory.BEAN_NAME)
+@Component(ASEPModelFactory.BEAN_NAME)
 @RequiredArgsConstructor
-public class NagelSchreckenbergModelFactory implements ModelFactory {
+public class ASEPModelFactory implements ModelFactory {
 
-	public static final String BEAN_NAME = "nagelSchreckenbergModelFactory";
+	public static final String BEAN_NAME = "ASEPModelFactory";
 
-	private static final int DEFAULT_LANES_NUMBER = 2;
-	private static final int DEFAULT_LANES_LENGTH = 20;
+	private static final int DEFAULT_LANES_NUMBER = 1;
+	private static final int DEFAULT_LANES_LENGTH = 10;
 
-	private static final int DEFAULT_SLOW_VEHICLES_NUMBER = 5;
-	private static final int DEFAULT_FAST_VEHICLES_NUMBER = 5;
+	private static final int DEFAULT_VEHICLES_NUMBER = 5;
 
-	private final NagelSchreckenberg model;
+	private final ASEP model;
 
 	@Override
 	public Model getModel() {
@@ -40,15 +39,14 @@ public class NagelSchreckenbergModelFactory implements ModelFactory {
 		modelDescriptor.setVehicleDescriptors(getDefaultVehiclesDescriptors());
 		modelDescriptor.setRoadDescriptor(getDefaultRoadDescriptor());
 
-		return null;
+		return modelDescriptor;
 	}
 
 	private List<VehicleDescriptor> getDefaultVehiclesDescriptors() {
 
 		List<VehicleDescriptor> descriptors = new ArrayList<>();
 
-		descriptors.add(new SlowVehicleDescriptor());
-		descriptors.add(new FastVehicleDescriptor());
+		descriptors.add(new SimpleVehicleDescriptor());
 
 		return descriptors;
 	}
@@ -63,19 +61,12 @@ public class NagelSchreckenbergModelFactory implements ModelFactory {
 		return roadDescriptor;
 	}
 
-	private static class SlowVehicleDescriptor extends VehicleDescriptor {
+	private static class SimpleVehicleDescriptor extends VehicleDescriptor {
 
-		public SlowVehicleDescriptor() {
+		public SimpleVehicleDescriptor() {
 
-			super(NagelSchreckenberg.SLOW_VEHICLE_MAX_VELOCITY, DEFAULT_SLOW_VEHICLES_NUMBER);
+			super(ASEP.MAX_VELOCITY, DEFAULT_VEHICLES_NUMBER);
 		}
 	}
 
-	private static class FastVehicleDescriptor extends VehicleDescriptor {
-
-		public FastVehicleDescriptor() {
-
-			super(NagelSchreckenberg.FAST_VEHICLE_MAX_VELOCITY, DEFAULT_FAST_VEHICLES_NUMBER);
-		}
-	}
 }

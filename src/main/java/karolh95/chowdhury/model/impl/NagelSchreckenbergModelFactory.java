@@ -45,16 +45,10 @@ public class NagelSchreckenbergModelFactory implements ModelFactory {
 
 	private List<VehicleDescriptor> getDefaultVehiclesDescriptors() {
 
-		VehicleDescriptor slowVehiclesDescriptor = new VehicleDescriptor(NagelSchreckenberg.SLOW_VEHICLE_MAX_VELOCITY,
-				DEFAULT_SLOW_VEHICLES_NUMBER);
-
-		VehicleDescriptor fastVehiclesDescriptor = new VehicleDescriptor(NagelSchreckenberg.FAST_VEHICLE_MAX_VELOCITY,
-				DEFAULT_FAST_VEHICLES_NUMBER);
-
 		List<VehicleDescriptor> descriptors = new ArrayList<>();
 
-		descriptors.add(slowVehiclesDescriptor);
-		descriptors.add(fastVehiclesDescriptor);
+		descriptors.add(new SlowVehicleDescriptor());
+		descriptors.add(new FastVehicleDescriptor());
 
 		return descriptors;
 	}
@@ -67,5 +61,21 @@ public class NagelSchreckenbergModelFactory implements ModelFactory {
 		roadDescriptor.setLanesLength(DEFAULT_LANES_LENGTH);
 
 		return roadDescriptor;
+	}
+
+	private static class SlowVehicleDescriptor extends VehicleDescriptor {
+
+		public SlowVehicleDescriptor() {
+
+			super(NagelSchreckenberg.SLOW_VEHICLE_MAX_VELOCITY, DEFAULT_SLOW_VEHICLES_NUMBER);
+		}
+	}
+
+	private static class FastVehicleDescriptor extends VehicleDescriptor {
+
+		public FastVehicleDescriptor() {
+
+			super(NagelSchreckenberg.FAST_VEHICLE_MAX_VELOCITY, DEFAULT_FAST_VEHICLES_NUMBER);
+		}
 	}
 }

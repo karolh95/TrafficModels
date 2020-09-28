@@ -46,9 +46,7 @@ public class ASEPModelFactory implements ModelFactory {
 
 		List<VehicleDescriptor> descriptors = new ArrayList<>();
 
-		VehicleDescriptor descriptor = new VehicleDescriptor(ASEP.MAX_VELOCITY, DEFAULT_VEHICLES_NUMBER);
-
-		descriptors.add(descriptor);
+		descriptors.add(new SimpleVehicleDescriptor());
 
 		return descriptors;
 	}
@@ -61,6 +59,14 @@ public class ASEPModelFactory implements ModelFactory {
 		roadDescriptor.setLanesLength(DEFAULT_LANES_LENGTH);
 
 		return roadDescriptor;
+	}
+
+	private static class SimpleVehicleDescriptor extends VehicleDescriptor {
+
+		public SimpleVehicleDescriptor() {
+
+			super(ASEP.MAX_VELOCITY, DEFAULT_VEHICLES_NUMBER);
+		}
 	}
 
 }

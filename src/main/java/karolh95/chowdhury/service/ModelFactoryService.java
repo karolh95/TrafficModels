@@ -5,10 +5,10 @@ import org.springframework.stereotype.Service;
 import karolh95.chowdhury.model.Model;
 import karolh95.chowdhury.model.descriptor.ModelDescriptor;
 import karolh95.chowdhury.model.factory.ModelFactory;
-import lombok.RequiredArgsConstructor;
+import lombok.AllArgsConstructor;
 
 @Service
-@RequiredArgsConstructor
+@AllArgsConstructor
 public class ModelFactoryService {
 
 	private ModelFactory factory;

@@ -1,10 +1,10 @@
 package karolh95.chowdhury.model;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 import java.util.function.Consumer;
-import java.util.stream.Collectors;
 
 import karolh95.chowdhury.model.component.Road;
 import karolh95.chowdhury.model.component.Vehicle;
@@ -25,7 +25,7 @@ public abstract class Model {
 
 	protected void forEachVehicle(Consumer<Vehicle> action) {
 
-		List<Vehicle> shuffledVehicleList = vehicles.stream().collect(Collectors.toList());
+		List<Vehicle> shuffledVehicleList = new ArrayList<>(vehicles);
 
 		Collections.shuffle(shuffledVehicleList, new Random());
 

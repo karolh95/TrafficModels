@@ -25,9 +25,4 @@ public class NagelSchreckenberg extends Model {
 	public NagelSchreckenberg(Road road) {
 		super(road);
 	}
-
-	@Override
-	public void update() {
-
-	}
 }

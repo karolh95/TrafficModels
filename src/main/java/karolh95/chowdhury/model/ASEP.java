@@ -12,12 +12,4 @@ public class ASEP extends Model {
 	public ASEP(Road road) {
 		super(road);
 	}
-
-	@Override
-	public void update() {
-
-		forEachVehicle(vehicle -> {
-
-		});
-	}
 }

@@ -15,13 +15,27 @@ import lombok.Setter;
 @RequiredArgsConstructor
 public abstract class Model {
 
-	protected final Road road;
+	private final Road road;
 
 	@Getter
 	@Setter
 	private List<Vehicle> vehicles;
 
-	public abstract void update();
+	public final void update() {
+
+		beforeVehiclesMoves();
+		forEachVehicle(this::move);
+		afterVehiclesMoves();
+	};
+
+	protected void beforeVehiclesMoves() {
+
+	}
+
+
+	protected void afterVehiclesMoves() {
+
+	}
 
 	protected void forEachVehicle(Consumer<Vehicle> action) {
 

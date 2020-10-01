@@ -10,10 +10,4 @@ public class NullModel extends Model {
 	public NullModel(Road road) {
 		super(road);
 	}
-
-	@Override
-	public void update() {
-
-	}
-
 }

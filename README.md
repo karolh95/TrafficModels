@@ -4,7 +4,14 @@ A Spring Boot application for multi-lane traffic models
 
 ## Table of contents
 
+* [Summary](#summary)
 * [Installation information](#installation-information)
+
+## Summary
+
+The aim of this project is to develop models of multi-lane traffic with different types of vehicles (with different values of maximum allowable speed), with the possibility of expanding the system with custom models.
+
+Basic models (ASEP and Nagel-Schreckenberg) were implemented to demonstrate the use and expected behavior of the models.
 
 ## Installation Information
 

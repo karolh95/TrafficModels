@@ -40,7 +40,7 @@ public class NagelSchreckenbergModelFactory implements ModelFactory {
 		modelDescriptor.setVehicleDescriptors(getDefaultVehiclesDescriptors());
 		modelDescriptor.setRoadDescriptor(getDefaultRoadDescriptor());
 
-		return null;
+		return modelDescriptor;
 	}
 
 	private List<VehicleDescriptor> getDefaultVehiclesDescriptors() {

@@ -1,8 +1,12 @@
 package karolh95.chowdhury.model;
 
+import java.util.function.Function;
+
 import com.fasterxml.jackson.annotation.JsonValue;
 
+import karolh95.chowdhury.model.component.Road;
 import karolh95.chowdhury.model.factory.ASEPModelFactory;
+import karolh95.chowdhury.model.factory.ModelFactory;
 import karolh95.chowdhury.model.factory.NagelSchreckenbergModelFactory;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -10,15 +14,14 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public enum ModelType {
 
-	NAGEL_SCHRECKENBERG("nagel-schreckenberg", NagelSchreckenbergModelFactory.BEAN_NAME),
-	ASEP("asep", ASEPModelFactory.BEAN_NAME);
+	NAGEL_SCHRECKENBERG("nagel-schreckenberg", NagelSchreckenbergModelFactory::new),
+	ASEP("asep", ASEPModelFactory::new);
 
 	@Getter
 	@JsonValue
 	private final String name;
 
-	@Getter
-	private final String modelFactoryBeanName;
+	private final Function<Road, ModelFactory> factory;
 
 	public static ModelType of(String type) {
 
@@ -34,5 +37,10 @@ public enum ModelType {
 		}
 
 		throw new IllegalArgumentException("ModelType: unknown value: " + type);
+	}
+
+	public ModelFactory getFactory(Road road) {
+
+		return factory.apply(road);
 	}
 }

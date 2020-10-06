@@ -3,20 +3,16 @@ package karolh95.chowdhury.model.factory;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.springframework.stereotype.Component;
-
 import karolh95.chowdhury.model.Model;
 import karolh95.chowdhury.model.NagelSchreckenberg;
+import karolh95.chowdhury.model.component.Road;
 import karolh95.chowdhury.model.descriptor.ModelDescriptor;
 import karolh95.chowdhury.model.descriptor.RoadDescriptor;
 import karolh95.chowdhury.model.descriptor.VehicleDescriptor;
 import lombok.RequiredArgsConstructor;
 
-@Component(NagelSchreckenbergModelFactory.BEAN_NAME)
 @RequiredArgsConstructor
 public class NagelSchreckenbergModelFactory implements ModelFactory {
-
-	public static final String BEAN_NAME = "nagelSchreckenbergModelFactory";
 
 	private static final int DEFAULT_LANES_NUMBER = 2;
 	private static final int DEFAULT_LANES_LENGTH = 20;
@@ -24,12 +20,12 @@ public class NagelSchreckenbergModelFactory implements ModelFactory {
 	private static final int DEFAULT_SLOW_VEHICLES_NUMBER = 5;
 	private static final int DEFAULT_FAST_VEHICLES_NUMBER = 5;
 
-	private final NagelSchreckenberg model;
+	private final Road road;
 
 	@Override
 	public Model getModel() {
 
-		return model;
+		return new NagelSchreckenberg(road);
 	}
 
 	@Override

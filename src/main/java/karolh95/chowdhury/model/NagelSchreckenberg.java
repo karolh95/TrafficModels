@@ -1,7 +1,5 @@
 package karolh95.chowdhury.model;
 
-import org.springframework.stereotype.Component;
-
 import karolh95.chowdhury.model.component.Road;
 import lombok.Setter;
 
@@ -16,7 +14,6 @@ import lombok.Setter;
  * </p>
  **/
 @Setter
-@Component
 public class NagelSchreckenberg extends Model {
 
 	public static final int SLOW_VEHICLE_MAX_VELOCITY = 3;

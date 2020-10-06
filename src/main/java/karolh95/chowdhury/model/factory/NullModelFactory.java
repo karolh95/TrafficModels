@@ -5,10 +5,11 @@ import java.util.ArrayList;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Component;
 
+import karolh95.chowdhury.model.Model;
 import karolh95.chowdhury.model.NullModel;
+import karolh95.chowdhury.model.component.Road;
 import karolh95.chowdhury.model.descriptor.ModelDescriptor;
 import karolh95.chowdhury.model.descriptor.RoadDescriptor;
-import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
 @Primary
@@ -18,9 +19,14 @@ public class NullModelFactory implements ModelFactory {
 
 	private static final int DEFAULT_LANES_NUMBER = 1;
 	private static final int DEFAULT_LANES_LENGTH = 1;
+	
+	private final Road road;
+	
+	@Override
+	public Model getModel() {
 
-	@Getter
-	private final NullModel model;
+		return new NullModel(road);
+	}
 
 	@Override
 	public ModelDescriptor getDefaultModelDescriptor() {

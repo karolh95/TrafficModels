@@ -19,9 +19,9 @@ public class NullModelFactory implements ModelFactory {
 
 	private static final int DEFAULT_LANES_NUMBER = 1;
 	private static final int DEFAULT_LANES_LENGTH = 1;
-	
+
 	private final Road road;
-	
+
 	@Override
 	public Model getModel() {
 

@@ -14,6 +14,8 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class NagelSchreckenbergModelFactory implements ModelFactory {
 
+	public static final String MODEL_NAME = "nagel-schreckenberg";
+
 	private static final int DEFAULT_LANES_NUMBER = 2;
 	private static final int DEFAULT_LANES_LENGTH = 20;
 

@@ -14,6 +14,8 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class ASEPModelFactory implements ModelFactory {
 
+	public static final String MODEL_NAME = "asep";
+
 	private static final int DEFAULT_LANES_NUMBER = 1;
 	private static final int DEFAULT_LANES_LENGTH = 10;
 

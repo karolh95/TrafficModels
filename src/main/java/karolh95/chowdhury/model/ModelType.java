@@ -14,8 +14,8 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public enum ModelType {
 
-	NAGEL_SCHRECKENBERG("nagel-schreckenberg", NagelSchreckenbergModelFactory::new),
-	ASEP("asep", ASEPModelFactory::new);
+	NAGEL_SCHRECKENBERG(NagelSchreckenbergModelFactory.MODEL_NAME, NagelSchreckenbergModelFactory::new),
+	ASEP(ASEPModelFactory.MODEL_NAME, ASEPModelFactory::new);
 
 	@Getter
 	@JsonValue

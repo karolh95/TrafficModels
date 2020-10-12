@@ -24,7 +24,13 @@ public abstract class Model {
 	public final void update() {
 
 		beforeVehiclesMoves();
-		forEachVehicle(this::vehiclePositionUpdate);
+
+		forEachVehicle(this::beforeVehiclePositionUpdate);
+
+		vehicles.forEach(this::move);
+
+		forEachVehicle(this::afterVehiclePositionUpdate);
+
 		afterVehiclesMoves();
 	};
 
@@ -34,13 +40,6 @@ public abstract class Model {
 
 	protected void afterVehiclesMoves() {
 
-	}
-
-	private void vehiclePositionUpdate(Vehicle vehicle) {
-
-		beforeVehiclePositionUpdate(vehicle);
-		move(vehicle);
-		afterVehiclePositionUpdate(vehicle);
 	}
 
 	protected void beforeVehiclePositionUpdate(Vehicle vehicle) {

@@ -1,4 +1,4 @@
-# **chowdhury**
+# **TrafficModels**
 
 A Spring Boot application for multi-lane traffic models
 
@@ -24,10 +24,10 @@ Basic models ([ASEP](#asep) and [Nagel-Schreckenberg](#ns)) were implemented to 
 
 ## Installation Information
 
-Chowdhury is a Spring Boot application built using Maven. You can build a jar file and run it from the command line:
+TrafficModels is a Spring Boot application built using Maven. You can build a jar file and run it from the command line:
 
 ```console
-git clone https://github.com/karolh95/chowdhury.git
+git clone https://github.com/karolh95/TrafficModels.git
 cd chowdhury
 ./mvnw package
 java -jar target/*.jar

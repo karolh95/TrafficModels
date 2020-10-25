@@ -75,7 +75,6 @@ public abstract class Model {
 
 	protected boolean isEmpty(int lane, int position) {
 
-		lane += position / road.getLanesLength();
 		position %= road.getLanesLength();
 
 		return road.at(lane, position) == null;
